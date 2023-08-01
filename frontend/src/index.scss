@@ -25,15 +25,32 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  // display: flex;
+  // place-items: center;
+  // min-width: 320px;
+  // min-height: 100vh;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff;
+  text-transform: uppercase;
+  box-shadow: 0 4px 4px rgba(88, 170, 216, .2);
+
+  &__icon {
+    width: 24px;
+  }
+
+  &:disabled {
+    opacity: 50%;
+  }
 }
 
 button {
@@ -53,6 +70,10 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+img {
+  vertical-align: bottom;
 }
 
 @media (prefers-color-scheme: light) {
