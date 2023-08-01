@@ -1,62 +1,48 @@
-// import styled from 'styled-components'
+import { styled } from 'styled-components';
 
-// const Paragraph = styled.p`
-//   color: red;
-//   margin-top: -200px;
-// `
-import { Controller } from './Controller/Controller';
-import { Graph } from './Graph/Graph';
-import './Counter.scss';
-import { useEffect, useState } from 'react';
+import { Controller } from './Controller';
+import { Graph } from './Graph';
+import { useTimer } from '../../hooks/useTimer';
+import { leadingZero } from '../../helpers/timerHelper';
+import { useEffect } from 'react';
+
+const StyledCounter = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px;
+  background-color: var(--color-grey);
+  border-radius: 8px;
+  box-shadow: 0 4px 4px rgba(88, 170, 216, .2);
+`
 
 export const Counter = () => {
-  const [isRunning, setIsRunning] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
+  const {
+    timeLeft,
+    isRunning,
+    handleRestartBtn,
+    handleSkipBtn,
+    handleStartBtn,
+  } = useTimer();
 
-  
-
-  const handleStartBtn = () => {
-    setIsRunning((prevState) => !prevState)
-  }
-
-  const handleRestartBtn = () => {
-    setTimeLeft(25 * 60);
-    setIsRunning(false);
-  }
-
-  const handleSkipBtn = () => {
-    setTimeLeft(10);
-  }
-  
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  const formatedTime = `${leadingZero(minutes)}:${leadingZero(seconds)}`
 
   useEffect(() => {
-    let timer: number | undefined;
-
-    if (isRunning && timeLeft > 0) {
-
-      timer = setTimeout(() => {
-        setTimeLeft(oldTime => oldTime - 1)
-      }, 1000);
-    }
-
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, [timeLeft, isRunning])
-
+    document.title = `${formatedTime} Pomodor`
+  })
 
   return (
-    <div className="Counter">
-      <Graph timeLeft={timeLeft}/>
-      <Controller 
+    <StyledCounter>
+      <Graph timer={formatedTime} timeLeft={timeLeft} />
+      <Controller
         onStartBtn={handleStartBtn}
         onRestartBtn={handleRestartBtn}
         onSkipBtn={handleSkipBtn}
         timeLeft={timeLeft}
         isRunning={isRunning}
       />
-    </div>
-  )
-}
+    </StyledCounter>
+  );
+};
