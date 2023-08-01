@@ -1,0 +1,13 @@
+$grey: #fafafa;
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid $grey;
+
+  &__image {
+    vertical-align: bottom;
+  }
+}
