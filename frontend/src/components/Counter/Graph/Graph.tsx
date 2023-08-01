@@ -5,6 +5,10 @@ interface Props {
   timeLeft: number
 }
 
+const leadingZero = (i: number) => {
+  return (i < 10)? "0"+i : i;
+}
+
 export const Graph = ({ timeLeft }: Props) => {
   const percent = (60 * 25 - timeLeft) / (60 * 25) * 100;
   console.log(percent);
@@ -13,7 +17,7 @@ export const Graph = ({ timeLeft }: Props) => {
   return (
     <div className="c-chart">
       <div className="c-chart__timer">
-        {`${minutes}:${seconds}`}
+        {`${leadingZero(minutes)}:${leadingZero(seconds)}`}
       </div>
 
       <div className="c-chart__graph">

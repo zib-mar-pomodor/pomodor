@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -25,6 +27,7 @@ a:hover {
 
 body {
   margin: 0;
+  padding: 0 24px;
   // display: flex;
   // place-items: center;
   // min-width: 320px;
@@ -42,7 +45,9 @@ h1 {
   gap: 8px;
   background-color: #fff;
   text-transform: uppercase;
+  border-radius: 8px;
   box-shadow: 0 4px 4px rgba(88, 170, 216, .2);
+  transition: all .1s ease-in;
 
   &__icon {
     width: 24px;
@@ -50,6 +55,10 @@ h1 {
 
   &:disabled {
     opacity: 50%;
+  }
+
+  &:active {
+    box-shadow: 0 2px 2px rgba(88, 170, 216, .2);
   }
 }
 
@@ -64,13 +73,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
+// button:focus,
+// button:focus-visible {
+//   outline: 4px auto -webkit-focus-ring-color;
+// }
 
 img {
   vertical-align: bottom;

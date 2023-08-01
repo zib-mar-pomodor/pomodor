@@ -10,7 +10,7 @@ import './Counter.scss';
 import { useEffect, useState } from 'react';
 
 export const Counter = () => {
-  const [isRunning, setIsRunning] = useState(true);
+  const [isRunning, setIsRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(25 * 60);
 
   
@@ -44,7 +44,7 @@ export const Counter = () => {
         clearTimeout(timer);
       }
     };
-  })
+  }, [timeLeft, isRunning])
 
 
   return (
