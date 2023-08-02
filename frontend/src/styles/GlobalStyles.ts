@@ -6,6 +6,12 @@ export const GlobalStyle = createGlobalStyle`
   --color-black: rgba(0,0,0, 0.95);
   --color-grey-50: rgba(0,0,0, 0.50);
   --color-white: #f5f2f2;
+
+
+  &.dark-mode {
+    --color-white: rgba(0,0,0, 0.50);
+  }
+  
   --color-grey: #fafafa;
   --color-dark-grey: #e2e2e2;
   --color-sea-blue: #58aad8;

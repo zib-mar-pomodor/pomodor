@@ -4,6 +4,7 @@ import { TimerIndicator } from './TimerIndicator';
 interface Props {
   timer: string;
   timeLeft: number;
+  timeSet: number;
 }
 
 const StyledGraph = styled.div`
@@ -22,8 +23,8 @@ const StyledGraph = styled.div`
   }
 `;
 
-export const Graph = ({ timer, timeLeft }: Props) => {
-  const percent: number = ((60 * 25 - timeLeft) / (60 * 25)) * 100;
+export const Graph = ({ timer, timeLeft, timeSet }: Props) => {
+  const percent: number = ((60 * timeSet - timeLeft) / (60 * timeSet)) * 100;
 
   return (
     <StyledGraph>

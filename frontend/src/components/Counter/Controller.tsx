@@ -15,6 +15,7 @@ interface ControllerProps {
   onSkipBtn: () => void;
   timeLeft: number;
   isRunning: boolean;
+  timeSet: number;
 }
 
 export const Controller = ({
@@ -23,12 +24,13 @@ export const Controller = ({
   onSkipBtn,
   timeLeft,
   isRunning,
+  timeSet,
 }: ControllerProps) => {
   return (
     <StyledController>
       <Button
         onClick={onRestartBtn}
-        disabled={timeLeft < 25 * 60 ? false : true}
+        disabled={timeLeft < timeSet * 60 ? false : true}
       >
         <img
           src={restartIcon}

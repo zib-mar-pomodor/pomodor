@@ -1,8 +1,12 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+interface StyleButtonProps {
+  $small?: boolean;
+  $isActive?: boolean;
+}
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<StyleButtonProps>`
   color: rgba(0, 0, 0, 0.87);
   display: inline-flex;
   align-items: center;
@@ -25,6 +29,24 @@ const StyledButton = styled.button`
   &:active {
     box-shadow: 0 2px 2px rgba(88, 170, 216, 0.2);
   }
+
+  ${props => props.$small && css`
+  text-transform: unset;
+  color: var(--color-grey-50);
+  background-color: transparent;
+  border-radius: 16px;
+  padding: 4px 8px;
+  box-shadow: none;
+
+  &:active {
+    box-shadow: none;
+  }
+  `}
+
+  ${props => props.$isActive && css`
+  background-color: var(--color-sea-blue-light);
+    color: var(--color-black);
+  `}
 `;
 
 interface ButtonProps {
@@ -32,6 +54,8 @@ interface ButtonProps {
   children: ReactNode;
   disabled?: boolean;
   style? : {width: string};
+  $small?: boolean;
+  $isActive?: boolean;
 }
 
 export const Button = ({
