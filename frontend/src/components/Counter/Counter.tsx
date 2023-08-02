@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 
+import { Label } from '../UI/Label/Label'
 import { Controller } from './Controller';
 import { Graph } from './Graph';
 import { useTimer } from '../../hooks/useTimer';
@@ -14,6 +15,11 @@ const StyledCounter = styled.div`
   background-color: var(--color-grey);
   border-radius: 8px;
   box-shadow: 0 4px 4px rgba(88, 170, 216, .2);
+
+  & .mode-switcher {
+    display: flex;
+    gap: 8px;
+  }
 `
 
 export const Counter = () => {
@@ -35,6 +41,19 @@ export const Counter = () => {
 
   return (
     <StyledCounter>
+      <div className="mode-switcher">
+        <Label isActive={true} onClick={() => {}}>
+          Pomodor
+        </Label>
+
+        <Label isActive={false} onClick={() => {}}>
+          Short break
+        </Label>
+
+        <Label isActive={false} onClick={() => {}}>
+          Long break
+        </Label>
+      </div>
       <Graph timer={formatedTime} timeLeft={timeLeft} />
       <Controller
         onStartBtn={handleStartBtn}

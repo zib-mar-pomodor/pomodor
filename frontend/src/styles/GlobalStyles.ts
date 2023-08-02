@@ -3,10 +3,13 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
 
 :root {
+  --color-black: rgba(0,0,0, 0.95);
+  --color-grey-50: rgba(0,0,0, 0.50);
   --color-white: #f5f2f2;
   --color-grey: #fafafa;
   --color-dark-grey: #e2e2e2;
   --color-sea-blue: #58aad8;
+  --color-sea-blue-light: #abd4eb;
   
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
