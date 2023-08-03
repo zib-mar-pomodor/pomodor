@@ -9,6 +9,9 @@ export const GlobalStyle = createGlobalStyle`
   --color-grey-02: rgba(0,0,0, 0.02);
   --color-white: #fff;
 
+  --color-dark-grey: #e2e2e2;
+  --color-sea-blue: #58aad8;
+  --color-sea-blue-light: #abd4eb;
 
   &.dark-mode {
     --color-black: rgba(255,255,255, 0.95);
@@ -16,12 +19,14 @@ export const GlobalStyle = createGlobalStyle`
     --color-grey-10: rgba(255,255,255, 0.10);
     --color-grey-02: rgba(255,255,255, 0.02);
     --color-white: rgba(0,0,0, 0.90);
+    --color-sea-blue-light: #58aad8;
+
+    img:not([class="Header__image"]) {
+      filter: invert(1);
+    }
   }
   
   
-  --color-dark-grey: #e2e2e2;
-  --color-sea-blue: #58aad8;
-  --color-sea-blue-light: #abd4eb;
   
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

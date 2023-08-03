@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
   padding: 24px 0;
   border-bottom: 1px solid var(--color-grey-10);
 
-  & .image {
+  & .Header__image {
     vertical-align: bottom;
   }
 `;
@@ -21,7 +21,7 @@ export const Header = () => {
       <a href="#">
         <img
           src={logo}
-          className="image"
+          className="Header__image"
           alt="Pomodor"
         />
       </a>
