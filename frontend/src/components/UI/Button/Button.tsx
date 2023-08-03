@@ -13,11 +13,13 @@ const StyledButton = styled.button<StyleButtonProps>`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  padding: 0 12px;
   background-color: var(--color-white);
   text-transform: uppercase;
   border-radius: 8px;
   box-shadow: 0 4px 4px rgba(88, 170, 216, 0.2);
   transition: all 0.1s ease-in;
+  height: 50px;
 
   & .icon {
     width: 24px;
@@ -32,6 +34,7 @@ const StyledButton = styled.button<StyleButtonProps>`
   }
 
   ${props => props.$small && css`
+  height: unset;
   text-transform: unset;
   color: var(--color-grey-50);
   background-color: transparent;
@@ -46,11 +49,12 @@ const StyledButton = styled.button<StyleButtonProps>`
 
   ${props => props.$isTab && css`
    position: absolute;
-   right: 0;
    top: 50%;
-   transform: translateY(-50%);
    border-top-right-radius: 0;
    border-bottom-right-radius: 0;
+   border: 1px solid var(--color-grey-10);
+   border-right: none;
+   box-shadow: none;
   `}
 
   ${props => props.$isActive && css`
@@ -65,7 +69,10 @@ interface ButtonProps {
   disabled?: boolean;
   style? : {
     width?: string,
-    backgroundColor?: string
+    backgroundColor?: string,
+    left?: string,
+    right?: string,
+    transform?: string
   };
   $small?: boolean;
   $isActive?: boolean;

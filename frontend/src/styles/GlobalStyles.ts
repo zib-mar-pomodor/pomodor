@@ -1,7 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-
+* {
+  box-sizing: border-box;;
+}
 :root {
   --color-black: rgba(0,0,0, 0.95);
   --color-grey-50: rgba(0,0,0, 0.50);
@@ -36,6 +38,7 @@ export const GlobalStyle = createGlobalStyle`
   color-scheme: light dark;
   background-color: var(--color-white) ;
 
+  overflow-x: hidden;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -90,7 +93,7 @@ table {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  /* padding: 0.6em 1.2em; */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
