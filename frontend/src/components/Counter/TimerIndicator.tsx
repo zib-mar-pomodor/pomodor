@@ -26,7 +26,7 @@ const StyledSvg = styled.svg`
 
   & .circle-bg {
     fill: none;
-    stroke: var(--color-dark-grey);
+    stroke: var(--color-grey-10);
     opacity: 90%;
     stroke-width: 0.1;
   }

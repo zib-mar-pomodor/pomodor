@@ -4,15 +4,16 @@ import styled, { css } from 'styled-components';
 interface StyleButtonProps {
   $small?: boolean;
   $isActive?: boolean;
+  $isTab?: boolean;
 }
 
 const StyledButton = styled.button<StyleButtonProps>`
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--color-black);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #fff;
+  background-color: var(--color-white);
   text-transform: uppercase;
   border-radius: 8px;
   box-shadow: 0 4px 4px rgba(88, 170, 216, 0.2);
@@ -43,6 +44,15 @@ const StyledButton = styled.button<StyleButtonProps>`
   }
   `}
 
+  ${props => props.$isTab && css`
+   position: absolute;
+   right: 0;
+   top: 50%;
+   transform: translateY(-50%);
+   border-top-right-radius: 0;
+   border-bottom-right-radius: 0;
+  `}
+
   ${props => props.$isActive && css`
   background-color: var(--color-sea-blue-light);
     color: var(--color-black);
@@ -53,9 +63,13 @@ interface ButtonProps {
   onClick: () => void;
   children: ReactNode;
   disabled?: boolean;
-  style? : {width: string};
+  style? : {
+    width?: string,
+    backgroundColor?: string
+  };
   $small?: boolean;
   $isActive?: boolean;
+  $isTab?: boolean;
 }
 
 export const Button = ({

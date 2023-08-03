@@ -8,7 +8,7 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
-  border-bottom: 1px solid var(--color-grey);
+  border-bottom: 1px solid var(--color-grey-10);
 
   & .image {
     vertical-align: bottom;

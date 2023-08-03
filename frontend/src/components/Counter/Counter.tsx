@@ -14,7 +14,7 @@ const StyledCounter = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 80px;
-  background-color: var(--color-grey);
+  background-color: var(--color-grey-02);
   border-radius: 8px;
   box-shadow: 0 4px 4px rgba(88, 170, 216, 0.2);
 

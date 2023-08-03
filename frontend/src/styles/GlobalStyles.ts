@@ -5,14 +5,20 @@ export const GlobalStyle = createGlobalStyle`
 :root {
   --color-black: rgba(0,0,0, 0.95);
   --color-grey-50: rgba(0,0,0, 0.50);
-  --color-white: #f5f2f2;
+  --color-grey-10: rgba(0,0,0, 0.10);
+  --color-grey-02: rgba(0,0,0, 0.02);
+  --color-white: #fff;
 
 
   &.dark-mode {
-    --color-white: rgba(0,0,0, 0.50);
+    --color-black: rgba(255,255,255, 0.95);
+    --color-grey-50: rgba(255,255,255, 0.50);
+    --color-grey-10: rgba(255,255,255, 0.10);
+    --color-grey-02: rgba(255,255,255, 0.02);
+    --color-white: rgba(0,0,0, 0.90);
   }
   
-  --color-grey: #fafafa;
+  
   --color-dark-grey: #e2e2e2;
   --color-sea-blue: #58aad8;
   --color-sea-blue-light: #abd4eb;
@@ -92,7 +98,7 @@ button {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: var(--color-white);
   }
   a:hover {
     color: #747bff;
