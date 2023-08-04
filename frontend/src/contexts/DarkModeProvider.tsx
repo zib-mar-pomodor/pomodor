@@ -3,17 +3,19 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 
 interface DarkModeContextValue {
   handleDarkModeChange: () => void;
+  isDark: boolean;
 }
 
 const DarkModeContext = createContext<DarkModeContextValue>({
   handleDarkModeChange: () => {},
+  isDark: false,
 });
 
 interface DarkModeContextProviderProps {
   children: React.ReactNode;
 }
 
-export const DarkModeContextProvider: React.FC<
+export const DarkModeProvider: React.FC<
   DarkModeContextProviderProps
 > = ({ children }) => {
   const { state: isDark, setState: setIsDark } = useLocalStorage<boolean>(
@@ -36,7 +38,7 @@ export const DarkModeContextProvider: React.FC<
   };
 
   return (
-    <DarkModeContext.Provider value={{ handleDarkModeChange }}>
+    <DarkModeContext.Provider value={{ isDark, handleDarkModeChange }}>
       {children}
     </DarkModeContext.Provider>
   );

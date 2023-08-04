@@ -1,26 +1,32 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLocalStorage } from './useLocalStorage';
+import bellRing from '../assets/sounds/bell-ring.wav';
+import { useSettings } from '../contexts/SettingProvider';
 
 export const useTimer = () => {
-  const { state: rounds } = useLocalStorage<number>('rounds', 4);
+  const { rounds, workDuration, shortBreakDuration, longBreakDuration } =
+    useSettings();
   const [stageIndex, setStageIndex] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<number>(25 * 60);
+
+  const playSound = () => {
+    new Audio(bellRing).play();
+  };
 
   const phaseArray = useMemo(
     () =>
       Array.from({ length: rounds * 2 }, (_, i) => {
         if (i % 2 === 0) {
-          return 25;
+          return workDuration;
         }
 
         if (i > rounds * 2 - 2) {
-          return 15;
+          return longBreakDuration;
         }
 
-        return 5;
+        return shortBreakDuration;
       }),
-    [rounds]
+    [rounds, workDuration, shortBreakDuration, longBreakDuration]
   );
 
   const handleStartBtn = useCallback(() => {
@@ -33,13 +39,9 @@ export const useTimer = () => {
   }, [stageIndex, phaseArray]);
 
   const handleSkipBtn = useCallback(() => {
-    setStageIndex(prevStage => {
-      if (prevStage === rounds * 2 - 1) {
-        return 0;
-      }
-
-      return prevStage + 1;
-    });
+    setStageIndex(prevStage =>
+      prevStage === rounds * 2 - 1 ? 0 : prevStage + 1
+    );
 
     setIsRunning(false);
   }, [rounds]);
@@ -64,13 +66,8 @@ export const useTimer = () => {
     }
 
     if (isRunning && timeLeft <= 0) {
+      playSound();
       handleSkipBtn();
-
-      if (stageIndex % 2 === 0) {
-        alert("It's time for rest");
-      } else {
-        alert('Get back to work');
-      }
     }
 
     return () => {
@@ -88,6 +85,5 @@ export const useTimer = () => {
     handleSkipBtn,
     handleRestartBtn,
     handleStartBtn,
-    rounds,
   };
 };

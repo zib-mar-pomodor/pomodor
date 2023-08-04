@@ -34,11 +34,9 @@ const StyledSvg = styled.svg`
 
 export const TimerIndicator = ({ percent }: TimerIndicatorProps) => {
   return (
-    <StyledSvg
-      viewBox="0 0 36 36"
-    >
+    <StyledSvg viewBox="0 0 36 36">
       <path
-      className='circle-bg'
+        className="circle-bg"
         d="M18 2.0845
         a 15.9155 15.9155 0 0 1 0 31.831
         a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -48,7 +46,7 @@ export const TimerIndicator = ({ percent }: TimerIndicatorProps) => {
       />
 
       <path
-      className='circle'
+        className="circle"
         d="M18 2.0845
         a 15.9155 15.9155 0 0 1 0 31.831
         a 15.9155 15.9155 0 0 1 0 -31.831"

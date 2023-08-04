@@ -1,9 +1,8 @@
 import { styled } from 'styled-components';
 
 type StageIndicatorProps = {
-  rounds: number;
+  round: number;
 };
-
 
 const StyledStageIndicator = styled.div`
   display: flex;
@@ -15,14 +14,14 @@ const StyledStageIndicator = styled.div`
   transform: translateY(100%);
 
   span:first-of-type {
-    color: var(--color-grey-50)
+    color: var(--color-grey-50);
   }
 `;
 
-export const StageIndicator = ({ rounds }: StageIndicatorProps) => {
+export const StageIndicator = ({ round }: StageIndicatorProps) => {
   return (
     <StyledStageIndicator>
-      <span>{`#${rounds}`}</span>
+      <span>{`#${round}`}</span>
       <span>SESSION</span>
     </StyledStageIndicator>
   );

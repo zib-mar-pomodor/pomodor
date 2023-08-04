@@ -7,6 +7,7 @@ import { leadingZero } from '../../helpers/timerHelper';
 import { useEffect } from 'react';
 import { Button } from '../UI/Button/Button';
 import { StageIndicator } from './StageIndicator';
+import { useSettings } from '../../contexts/SettingProvider';
 
 const StyledCounter = styled.div`
   position: relative;
@@ -25,6 +26,7 @@ const StyledCounter = styled.div`
 `;
 
 export const Counter = () => {
+  const { rounds, isTimerInTitle } = useSettings();
   const {
     timeLeft,
     isRunning,
@@ -33,7 +35,6 @@ export const Counter = () => {
     handleStartBtn,
     stageIndex,
     phaseArray,
-    rounds,
   } = useTimer();
 
   const minutes = Math.floor(timeLeft / 60);
@@ -41,7 +42,11 @@ export const Counter = () => {
   const formatedTime = `${leadingZero(minutes)}:${leadingZero(seconds)}`;
 
   useEffect(() => {
-    document.title = `${formatedTime} Pomodor`;
+    if (isRunning && isTimerInTitle) {
+      document.title = `${formatedTime} | Pomodor`;
+    } else {
+      document.title = `Pomodor`;
+    }
   });
 
   return (
@@ -89,9 +94,7 @@ export const Counter = () => {
         isRunning={isRunning}
       />
 
-      <StageIndicator 
-        rounds={Math.floor(stageIndex / 2) + 1}
-      />
+      <StageIndicator round={Math.floor(stageIndex / 2) + 1} />
     </StyledCounter>
   );
 };

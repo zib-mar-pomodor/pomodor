@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { Counter } from './Counter/Counter';
 import { Header } from './Header';
 import { GlobalStyle } from '../styles/GlobalStyles';
-import { DarkModeContextProvider } from '../contexts/darkModeContext';
 import { Button } from './UI/Button/Button';
 import { SettingsTab } from './SettingsTab';
-import sunIcon from '../assets/icons/sun_icon.svg'
 import { useState } from 'react';
+import { useDarkMode } from '../contexts/DarkModeProvider';
+import sunIcon from '../assets/icons/sun_icon.svg';
+import moonIcon from '../assets/icons/moonstart_icon.svg';
 
 const StyledApp = styled.div`
   max-width: 800px;
@@ -18,37 +19,39 @@ const StyledApp = styled.div`
   }
 `;
 
-const handleNightMode = () => {
-  document.documentElement.classList.toggle('dark-mode')
-}
-
-
-
 export const App = () => {
+  const { handleDarkModeChange, isDark } = useDarkMode();
   const [settingsOpen, setSettingsOpen] = useState(false);
+
   const handleModeChange = () => {
+    setSettingsOpen(currState => !currState);
+  };
 
-    setSettingsOpen((currState) => !currState)
-  }
-
-  console.log(settingsOpen);
   return (
-    <DarkModeContextProvider>
-      <StyledApp>
-        <GlobalStyle />
+    <StyledApp>
+      <GlobalStyle />
 
-        <Header />
+      <Header />
 
-        <main>
-          <Counter />
-        </main>
+      <main>
+        <Counter />
+      </main>
 
-        <Button onClick={handleNightMode} $isTab style={{ right: '-1px', transform: 'translateY(58px)' }}>
-          <img src={sunIcon} alt="Night mode" />
-        </Button>
+      <Button
+        onClick={handleDarkModeChange}
+        $isTab
+        style={{ right: '-1px', transform: 'translateY(58px)' }}
+      >
+        <img
+          src={isDark ? sunIcon : moonIcon}
+          alt="Toggle night mode"
+        />
+      </Button>
 
-        <SettingsTab onclick={handleModeChange} settingsOpen={settingsOpen} />
-      </StyledApp>
-    </DarkModeContextProvider>
+      <SettingsTab
+        onclick={handleModeChange}
+        settingsOpen={settingsOpen}
+      />
+    </StyledApp>
   );
 };
