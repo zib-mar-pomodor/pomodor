@@ -4,7 +4,7 @@ import { Button } from './UI/Button/Button';
 import optionsIcon from '../assets/icons/options_icon.svg'
 
 interface StyledSettingsTabProps {
-  settingsOpen?: boolean
+  $settingsOpen?: boolean
 }
 
 const StyledSettingsTab = styled.div<StyledSettingsTabProps>`
@@ -17,14 +17,11 @@ const StyledSettingsTab = styled.div<StyledSettingsTabProps>`
   top: 0;
   bottom: 0;
   transition: all 0.25s ease-in-out;
-  transform: translateX(100%);
-  /* background-color: ${props => props.settingsOpen ? 'red' : 'green'} */
-
-  /* ${props => props.settingsOpen && css`
-  color: red;
-  border: 1px solid red;
   transform: translateX(0%);
-  `} */
+
+  ${props => props.$settingsOpen && css`
+  transform: translateX(100%);
+  `}
 `;
 
 interface Props {
@@ -36,7 +33,7 @@ export const SettingsTab: React.FC<Props> = ({ onclick, settingsOpen }: Props,) 
   console.log('tab rendered')
   console.log(settingsOpen);
   return (
-    <StyledSettingsTab style={(settingsOpen) ? { transform: 'translateX(0%)'} : { transform: 'translateX(100%)' }}>
+    <StyledSettingsTab $settingsOpen={settingsOpen}>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, sunt sint. Distinctio ducimus fugit eveniet asperiores aspernatur architecto inventore quam?</p>
 
       <Button onClick={onclick} $isTab style={{ left: '-49px' }}>
