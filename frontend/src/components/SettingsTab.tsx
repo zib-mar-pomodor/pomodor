@@ -11,12 +11,13 @@ interface StyledSettingsTabProps {
 }
 
 const StyledSettingsTab = styled.div<StyledSettingsTabProps>`
+  min-width: 350px;
   max-width: 400px;
   padding: 24px;
   position: absolute;
   z-index: 10;
   color: var(--color-black);
-  background-color: var(--color-dark-grey);
+  background-color: var(--color-white);
   border-left: 1px solid var(--color-grey-10);
   right: 0;
   top: 0;
@@ -38,6 +39,46 @@ const StyledForm = styled.form`
 
   .label {
     display: block;
+    margin-bottom: 12px;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 12px;
+    width: 12px;
+    border-radius: 6px;
+    background: var(--color-sea-blue);
+    cursor: pointer;
+    position: relative;
+    margin-top: -5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+  }
+
+  input[type=range]::-webkit-slider-thumb:hover {
+    border: 2px solid red;
+  }
+
+  input[type=range]::-webkit-slider-thumb::before {
+    content: 'x';
+    /* display: div; */
+    width: 10px;
+    height: 10px;
+    background-color: red;
+  }
+
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+    background: var(--color-sea-blue-light);
+    border-radius: 1px;
   }
 `;
 
