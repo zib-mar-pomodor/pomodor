@@ -2,34 +2,31 @@ import styled from 'styled-components';
 
 import restartIcon from '../../assets/icons/restart_icon.svg';
 import skipIcon from '../../assets/icons/skip_icon.svg';
-import { Button } from '../UI/Button/Button';
+import { Button } from '../UI/Button';
+import { useTimerContext } from '../../contexts/TimerContext';
 
 const StyledController = styled.div`
   display: flex;
   gap: 8px;
 `;
 
-interface ControllerProps {
-  onStartBtn: () => void;
-  onRestartBtn: () => void;
-  onSkipBtn: () => void;
-  timeLeft: number;
-  isRunning: boolean;
-  timeSet: number;
-}
+export const Controller = () => {
+  const {
+    handleRestartBtn,
+    handleSkipBtn,
+    handleStartBtn,
+    timeLeft,
+    isRunning,
+    phaseArray,
+    stageIndex,
+  } = useTimerContext();
 
-export const Controller = ({
-  onStartBtn,
-  onRestartBtn,
-  onSkipBtn,
-  timeLeft,
-  isRunning,
-  timeSet,
-}: ControllerProps) => {
+  const timeSet = phaseArray[stageIndex];
+
   return (
     <StyledController>
       <Button
-        onClick={onRestartBtn}
+        onClick={handleRestartBtn}
         disabled={timeLeft < timeSet * 60 ? false : true}
       >
         <img
@@ -40,13 +37,13 @@ export const Controller = ({
       </Button>
 
       <Button
-        onClick={onStartBtn}
+        onClick={handleStartBtn}
         style={{ width: '90px' }}
       >
         {isRunning ? 'Stop' : 'Start'}
       </Button>
 
-      <Button onClick={onSkipBtn}>
+      <Button onClick={handleSkipBtn}>
         <img
           src={skipIcon}
           alt="Skip pomodor"

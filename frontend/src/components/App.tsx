@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { Counter } from './Counter/Counter';
 import { Header } from './Header';
 import { GlobalStyle } from '../styles/GlobalStyles';
-import { Button } from './UI/Button/Button';
+import { Button } from './UI/Button';
 import { SettingsTab } from './SettingsTab';
-import { useState } from 'react';
 import { useDarkMode } from '../contexts/DarkModeProvider';
 import sunIcon from '../assets/icons/sun_icon.svg';
 import moonIcon from '../assets/icons/moonstart_icon.svg';
@@ -21,11 +20,6 @@ const StyledApp = styled.div`
 
 export const App = () => {
   const { handleDarkModeChange, isDark } = useDarkMode();
-  const [settingsOpen, setSettingsOpen] = useState(false);
-
-  const handleModeChange = () => {
-    setSettingsOpen(currState => !currState);
-  };
 
   return (
     <StyledApp>
@@ -48,10 +42,7 @@ export const App = () => {
         />
       </Button>
 
-      <SettingsTab
-        onclick={handleModeChange}
-        settingsOpen={settingsOpen}
-      />
+      <SettingsTab />
     </StyledApp>
   );
 };

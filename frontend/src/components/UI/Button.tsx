@@ -64,8 +64,8 @@ const StyledButton = styled.button<StyleButtonProps>`
 `;
 
 interface ButtonProps {
-  onClick: () => void;
   children: ReactNode;
+  onClick?: () => void;
   disabled?: boolean;
   style? : {
     width?: string,

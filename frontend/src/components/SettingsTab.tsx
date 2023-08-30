@@ -1,13 +1,16 @@
 import styled, { css } from 'styled-components';
 
-import { Button } from './UI/Button/Button';
+import { Button } from './UI/Button';
 import optionsIcon from '../assets/icons/options_icon.svg';
 import { useSettings } from '../contexts/SettingProvider';
-import { ChangeEvent } from 'react';
-import { ToggleBtn } from './UI/ToggleBtn/ToggleBtn';
+import { ToggleBtn } from './UI/ToggleBtn';
+import { RangeInput } from './UI/RangeInput';
+import { actions } from '../actions/settingActions';
+import { useTimerContext } from '../contexts/TimerContext';
+import { useState } from 'react';
 
 interface StyledSettingsTabProps {
-  $settingsOpen?: boolean;
+  $settingsOpen: boolean;
 }
 
 const StyledSettingsTab = styled.div<StyledSettingsTabProps>`
@@ -32,171 +35,105 @@ const StyledSettingsTab = styled.div<StyledSettingsTabProps>`
     `}
 `;
 
-const StyledForm = styled.form`
+interface StyledFormProps {
+  $isFormActive: boolean;
+}
+
+const StyledForm = styled.form<StyledFormProps>`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  transition: all 0.25s ease-in-out;
 
-  .label {
-    display: block;
-    margin-bottom: 12px;
-  }
-
-  input[type=range] {
-    -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
-  }
-
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 12px;
-    width: 12px;
-    border-radius: 6px;
-    background: var(--color-sea-blue);
-    cursor: pointer;
-    position: relative;
-    margin-top: -5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
-  }
-
-  input[type=range]::-webkit-slider-thumb:hover {
-    border: 2px solid red;
-  }
-
-  input[type=range]::-webkit-slider-thumb::before {
-    content: 'x';
-    /* display: div; */
-    width: 10px;
-    height: 10px;
-    background-color: red;
-  }
-
-  input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 2px;
-    cursor: pointer;
-    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
-    background: var(--color-sea-blue-light);
-    border-radius: 1px;
-  }
+  ${props =>
+    !props.$isFormActive &&
+    css`
+      position: relative;
+      opacity: 0.6;
+      pointer-events: none;
+    `}
 `;
 
-interface Props {
-  onclick: () => void;
-  settingsOpen: boolean;
-}
 
-export const SettingsTab: React.FC<Props> = ({
-  onclick,
-  settingsOpen,
-}: Props) => {
-  const { workDuration, settingsDispatcher } = useSettings();
+export const SettingsTab = () => {
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const changeWorkDuration = (e: ChangeEvent<HTMLInputElement>) => {
-    settingsDispatcher({
-      type: 'settings/SET_WORK',
-      payload:  +e.target.value,
-    });
-  };
+  const {
+    workDuration,
+    shortBreakDuration,
+    longBreakDuration,
+    rounds,
+    isNotifications,
+    isTimerInTitle,
+    autoStart,
+  } = useSettings();
+  const { timeLeft, phaseArray, stageIndex } = useTimerContext();
+
+  const timeSet = phaseArray[stageIndex];
 
   return (
     <StyledSettingsTab $settingsOpen={settingsOpen}>
-      <StyledForm className="form">
-        <div className="form__field">
-          <label
-            htmlFor="pomodorTime"
-            className="label"
-          >
-            Rounds
-          </label>
-          <input
-            type="range"
-            name=""
-            id="pomodorTime"
-            min={5}
-            max={60}
-            value={workDuration} //state / local storage?
-            onChange={changeWorkDuration}
-          />
-        </div>
+      <StyledForm
+        className="form"
+        $isFormActive={timeLeft < timeSet * 60 ? false : true}
+      >
+        <RangeInput
+          value={workDuration}
+          label="Work duration"
+          min={10}
+          max={60}
+          action={actions.setWorkAction}
+        />
 
-        <div className="form__field">
-          <label
-            htmlFor="shortBreakTime"
-            className="label"
-          >
-            Rounds
-          </label>
-          <input
-            type="range"
-            name=""
-            id="shortBreakTime"
-            min={1}
-            max={30}
-            value={5} //state / local storage?
-          />
-        </div>
+        <RangeInput
+          value={shortBreakDuration}
+          label="Short brak duration"
+          min={1}
+          max={15}
+          action={actions.setShortBreakAction}
+        />
 
-        <div className="form__field">
-          <label
-            htmlFor="londBreakTime"
-            className="label"
-          >
-            Rounds
-          </label>
-          <input
-            type="range"
-            name=""
-            id="londBreakTime"
-            min={1}
-            max={45}
-            value={15} //state / local storage?
-          />
-        </div>
+        <RangeInput
+          value={longBreakDuration}
+          label="Long brak duration"
+          min={1}
+          max={40}
+          action={actions.setLongBreakAction}
+        />
 
-        <div className="form__field">
-          <label
-            htmlFor="roundsAmount"
-            className="label"
-          >
-            Rounds
-          </label>
-          <input
-            type="range"
-            name=""
-            id="roundsAmount"
-            min={2}
-            max={12}
-            value={4} //state / local storage?
-          />
-        </div>
+        <RangeInput
+          value={rounds}
+          label="Rounds"
+          min={1}
+          max={10}
+          action={actions.setRoundsAction}
+        />
 
-        <div className="form__field">
-          <label
-            htmlFor="timerInTitle"
-            className="label"
-          >
-            Rounds
-          </label>
-          <input
-            type="checkbox"
-            name=""
-            id="timerInTitle"
-            checked={false} //state / local storage?
-          />
-        </div>
-        <ToggleBtn isActive />
+        <ToggleBtn
+          action={actions.toggleAutoStartAction}
+          title="Auto Start"
+          option={autoStart}
+        />
+        <ToggleBtn
+          action={actions.toggleTimerInTitleAction}
+          title="Timer in title"
+          option={isTimerInTitle}
+        />
+        <ToggleBtn
+          action={actions.toggleNotificationsAction}
+          title="Notifications"
+          option={isNotifications}
+        />
       </StyledForm>
 
       <Button
-        onClick={onclick}
+        onClick={() => setSettingsOpen(currState => !currState)}
         $isTab
         style={{ left: '-49px' }}
       >
         <img
           src={optionsIcon}
-          alt="Night mode"
+          alt="Settings tab"
         />
       </Button>
     </StyledSettingsTab>

@@ -1,7 +1,9 @@
 import logo from '../assets/pomodor_logo.png';
 import userIcon from '../assets/icons/user_icon.svg';
-import { Button } from './UI/Button/Button';
+import { Button } from './UI/Button';
 import styled from 'styled-components';
+import { Modal } from './UI/Modal';
+import { useState } from 'react';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -16,6 +18,12 @@ const StyledHeader = styled.header`
 `;
 
 export const Header = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  }
+
   return (
     <StyledHeader>
       <a href="#">
@@ -26,7 +34,7 @@ export const Header = () => {
         />
       </a>
 
-      <Button onClick={() => {}}>
+      <Button onClick={() => setModalOpen(true)}>
         <img
           src={userIcon}
           alt="Login"
@@ -34,6 +42,13 @@ export const Header = () => {
         />
         Log in
       </Button>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      >
+        <div>Hello</div>
+      </Modal>
     </StyledHeader>
   );
 };

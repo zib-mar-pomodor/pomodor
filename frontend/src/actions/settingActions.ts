@@ -30,35 +30,35 @@ interface SetAutoStartAction {
   type: 'settings/TOGGLE_AUTO-START';
 }
 
-const setWorkAction = (time: number) => ({
+const setWorkAction = (time: number): SettingsActionType => ({
   type: 'settings/SET_WORK',
   payload: time,
 });
 
-const setShortBreakAction = (time: number) => ({
+const setShortBreakAction = (time: number): SettingsActionType => ({
   type: 'settings/SET_SHORT-BREAK',
   payload: time,
 });
 
-const setLongBreakAction = (time: number) => ({
+const setLongBreakAction = (time: number): SettingsActionType => ({
   type: 'settings/SET_LONG-BREAK',
   payload: time,
 });
 
-const setRoundsAction = (num: number) => ({
-  type: 'settings/SET_LONG-BREAK',
+const setRoundsAction = (num: number): SettingsActionType => ({
+  type: 'settings/SET_ROUNDS',
   payload: num,
 });
 
-const toggleTimerInTitleAction = () => ({
+const toggleTimerInTitleAction = (): SettingsActionType => ({
   type: 'settings/TOGGLE_TIMER-IN-TITLE',
 });
 
-const toggleNotificationsAction = () => ({
+const toggleNotificationsAction = (): SettingsActionType => ({
   type: 'settings/TOGGLE_NOTIFICATIONS',
 });
 
-const toggleAutoStartAction = () => ({
+const toggleAutoStartAction = (): SettingsActionType => ({
   type: 'settings/TOGGLE_AUTO-START',
 });
 

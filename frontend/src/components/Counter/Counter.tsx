@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
 
+import { useSettings } from '../../contexts/SettingProvider';
 import { Controller } from './Controller';
 import { Graph } from './Graph';
-import { useTimer } from '../../hooks/useTimer';
 import { leadingZero } from '../../helpers/timerHelper';
 import { useEffect } from 'react';
-import { Button } from '../UI/Button/Button';
+import { RoundIndicator } from './RoundIndicator';
 import { StageIndicator } from './StageIndicator';
-import { useSettings } from '../../contexts/SettingProvider';
+import { useTimerContext } from '../../contexts/TimerContext';
 
 const StyledCounter = styled.div`
   position: relative;
@@ -26,16 +26,8 @@ const StyledCounter = styled.div`
 `;
 
 export const Counter = () => {
-  const { rounds, isTimerInTitle } = useSettings();
-  const {
-    timeLeft,
-    isRunning,
-    handleRestartBtn,
-    handleSkipBtn,
-    handleStartBtn,
-    stageIndex,
-    phaseArray,
-  } = useTimer();
+  const { isTimerInTitle } = useSettings();
+  const { timeLeft, isRunning } = useTimerContext();
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -51,50 +43,12 @@ export const Counter = () => {
 
   return (
     <StyledCounter>
-      <div className="mode-switcher">
-        <Button
-          $small
-          $isActive={stageIndex % 2 === 0 ? true : false}
-          onClick={() => {}}
-        >
-          Pomodor
-        </Button>
+      <StageIndicator />
+      <Graph timer={formatedTime} />
 
-        <Button
-          $small
-          $isActive={
-            stageIndex % 2 === 1 && stageIndex !== rounds * 2 - 1 ? true : false
-          }
-          onClick={() => {}}
-        >
-          Short break
-        </Button>
+      <Controller />
 
-        <Button
-          $small
-          $isActive={stageIndex === rounds * 2 - 1 ? true : false}
-          onClick={() => {}}
-        >
-          Long break
-        </Button>
-      </div>
-
-      <Graph
-        timer={formatedTime}
-        timeLeft={timeLeft}
-        timeSet={phaseArray[stageIndex]}
-      />
-
-      <Controller
-        timeSet={phaseArray[stageIndex]}
-        onStartBtn={handleStartBtn}
-        onRestartBtn={handleRestartBtn}
-        onSkipBtn={handleSkipBtn}
-        timeLeft={timeLeft}
-        isRunning={isRunning}
-      />
-
-      <StageIndicator round={Math.floor(stageIndex / 2) + 1} />
+      <RoundIndicator />
     </StyledCounter>
   );
 };

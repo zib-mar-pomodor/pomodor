@@ -1,10 +1,9 @@
 import { styled } from 'styled-components';
 import { TimerIndicator } from './TimerIndicator';
+import { useTimerContext } from '../../contexts/TimerContext';
 
 interface Props {
   timer: string;
-  timeLeft: number;
-  timeSet: number;
 }
 
 const StyledGraph = styled.div`
@@ -23,7 +22,10 @@ const StyledGraph = styled.div`
   }
 `;
 
-export const Graph = ({ timer, timeLeft, timeSet }: Props) => {
+export const Graph = ({ timer }: Props) => {
+  const { stageIndex, phaseArray, timeLeft } = useTimerContext();
+
+  const timeSet = phaseArray[stageIndex];
   const percent: number = ((60 * timeSet - timeLeft) / (60 * timeSet)) * 100;
 
   return (

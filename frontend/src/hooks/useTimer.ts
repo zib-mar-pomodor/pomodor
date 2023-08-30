@@ -1,37 +1,30 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import bellRing from '../assets/sounds/bell-ring.wav';
 import { useSettings } from '../contexts/SettingProvider';
+import bellRing from '../assets/sounds/bell-ring.wav';
 
 export const useTimer = () => {
   const { rounds, workDuration, shortBreakDuration, longBreakDuration } =
     useSettings();
   const [stageIndex, setStageIndex] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
-  const [timeLeft, setTimeLeft] = useState<number>(25 * 60);
+  const [timeLeft, setTimeLeft] = useState<number>(workDuration * 60);
 
   const playSound = () => {
     new Audio(bellRing).play();
   };
 
-  const phaseArray = useMemo(
+  const phaseArray = useMemo<number[]>(
     () =>
       Array.from({ length: rounds * 2 }, (_, i) => {
-        if (i % 2 === 0) {
-          return workDuration;
-        }
-
-        if (i > rounds * 2 - 2) {
-          return longBreakDuration;
-        }
-
-        return shortBreakDuration;
+        if (i % 2 === 0) return workDuration;
+        return i === rounds * 2 - 1 ? longBreakDuration : shortBreakDuration;
       }),
     [rounds, workDuration, shortBreakDuration, longBreakDuration]
   );
 
   const handleStartBtn = useCallback(() => {
     setIsRunning(prevState => !prevState);
-  }, [setIsRunning]);
+  }, []);
 
   const handleRestartBtn = useCallback(() => {
     setTimeLeft(phaseArray[stageIndex] * 60);
@@ -53,20 +46,15 @@ export const useTimer = () => {
   useEffect(() => {
     let intervalId: number | undefined;
 
-    const asyncTimer = async () => {
-      return Promise.resolve(
-        setInterval(() => {
-          setTimeLeft(oldTime => oldTime - 1);
-        }, 1000)
-      );
-    };
-
     if (isRunning && timeLeft > 0) {
-      asyncTimer().then(number => (intervalId = number));
+      intervalId = window.setInterval(() => {
+        setTimeLeft(prevTime => prevTime - 1);
+      }, 1000);
     }
 
     if (isRunning && timeLeft <= 0) {
       playSound();
+      setTimeout(() => alert("Nice"), 1000);
       handleSkipBtn();
     }
 

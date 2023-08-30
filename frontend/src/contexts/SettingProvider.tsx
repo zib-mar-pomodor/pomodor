@@ -26,7 +26,6 @@ const defaultState: SettingsContextType = {
 
 const SettingsContext = createContext<SettingsContextType>({
   ...defaultState,
-  settingsDispatcher: () => {},
 });
 
 interface State {
